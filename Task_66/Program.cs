@@ -1,5 +1,7 @@
 ﻿// Задача 66: Задайте значения M и N. Напишите программу, которая выведет все натуральные 
 //            числа в промежутке от M до N.
+// Уточнение задания:
+// 1. На печать выводятся числа между M и N, не включая границы диапазона.
 
 void TitleInputErrorMessage()
 {   Console.WriteLine("Уважаемый пользователь, вы ошиблись при вводе! ");
@@ -28,7 +30,6 @@ int CheckNaturalNumbers (string messageForUser)
         else 
         {   NumberInputErrorMessage(userNumber, definitionNumber);
         } 
-        Console.WriteLine();
     }
     return number;
 }
@@ -40,12 +41,21 @@ int InputIntegerNumber(string text1, string text2, string text3)
     return result; 
 }
 
+void PrintNaturalNumbersRange(int m, int n, int sign)
+{   if(m == n) {Console.WriteLine($"{n}."); return;} 
+    else {Console.Write($"{m}, "); PrintNaturalNumbersRange(m + sign, n, sign);}
+}
 
 
-int m, n;
+
+int M, N;
 string text1 = string.Empty, text2 = string.Empty, text3 = string.Empty;
 text1 = "натуральное"; text2 = "число"; text3 = "m";
-m = InputIntegerNumber(text1, text2, text3);
+M = InputIntegerNumber(text1, text2, text3);
 text3 = "n";
-n = InputIntegerNumber(text1, text2, text3);
-
+N = InputIntegerNumber(text1, text2, text3);
+int sign, m, n;
+if(M > N) {sign = -1; m = M - 1; n = N + 1;}
+else {sign = 1;  m = M + 1; n = N - 1;}
+Console.WriteLine($"Натуральные числа из диапазона от {M} до {N}:");
+PrintNaturalNumbersRange(m, n, sign);
